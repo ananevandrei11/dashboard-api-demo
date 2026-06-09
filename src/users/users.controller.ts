@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { BaseController } from "../common/base.controller.ts";
 import type { LoggerService } from "../logger/logger.service.ts";
+import { HTTPError } from "../error/http-error.class.ts";
 
 export class UsersController extends BaseController {
   constructor(logger: LoggerService) {
@@ -20,10 +21,11 @@ export class UsersController extends BaseController {
   }
 
   login(req: Request, res: Response, next: NextFunction) {
-    this.ok(res, 'login')
+    next(new HTTPError(401, "Not Authorized", "Login Route"));
+    // this.ok(res, "login");
   }
 
   register(req: Request, res: Response, next: NextFunction) {
-    this.ok(res, 'register')
+    this.ok(res, "register");
   }
 }
