@@ -1,22 +1,24 @@
 import express, { type Express } from "express";
 import { Server } from "http";
-import { userRouter } from "./users/index.ts";
 import type { LoggerService } from "./logger/logger.service.ts";
+import type { UsersController } from "./users/users.controller.ts";
 
 export class App {
   app: Express;
   server: Server;
   port: number;
   logger: LoggerService;
+  userController: UsersController;
 
-  constructor(logger: LoggerService) {
+  constructor(logger: LoggerService, userController: UsersController) {
     this.app = express();
     this.port = 8000;
     this.logger = logger;
+    this.userController = userController;
   }
 
   useRoutes() {
-    this.app.use("/users", userRouter);
+    this.app.use("/users", this.userController.router);
   }
 
   ping() {
@@ -30,7 +32,9 @@ export class App {
     this.ping();
     this.useRoutes();
     this.server = this.app.listen(this.port, () => {
-      this.logger.log(`Example app listening on host: http://localhost:${this.port}`);
+      this.logger.log(
+        `Example app listening on host: http://localhost:${this.port}`,
+      );
     });
   }
 }
