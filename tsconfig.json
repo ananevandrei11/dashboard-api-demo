@@ -11,7 +11,7 @@
     // Node type stripping / direct execution
     "noEmit": true,
     "rewriteRelativeImportExtensions": true,
-    "erasableSyntaxOnly": true,
+    // "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true,
 
     // Stricter Typechecking Options
@@ -25,6 +25,8 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
   }
 }

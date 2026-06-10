@@ -1,10 +1,13 @@
 import type { Request, Response, NextFunction } from "express";
+import { inject, injectable } from "inversify";
 import { BaseController } from "../common/base.controller.ts";
 import type { ILoggerService } from "../logger/logger.interface.ts";
 import { HTTPError } from "../error/http-error.class.ts";
+import { TYPES } from "../types.ts";
 
+@injectable()
 export class UsersController extends BaseController {
-  constructor(logger: ILoggerService) {
+  constructor(@inject(TYPES.ILoggerService) logger: ILoggerService) {
     super(logger);
     this.bindRoutes([
       {
