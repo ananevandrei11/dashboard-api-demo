@@ -1,4 +1,4 @@
-import { Container } from "inversify";
+import { Container, ContainerModule } from "inversify";
 import { TYPES } from "./types.ts";
 import { App } from "./app.ts";
 import { ExeptionFilter } from "./error/exeption.filter.ts";
@@ -19,6 +19,22 @@ async function bootstrap() {
 bootstrap();
 */
 
+export const appBindings = new ContainerModule((load) => {
+  load.bind<ILoggerService>(TYPES.ILoggerService).to(LoggerService);
+  load.bind<IExeptionFilter>(TYPES.ExeptionFilter).to(ExeptionFilter);
+  load.bind<UsersController>(TYPES.UsersController).to(UsersController);
+  load.bind<App>(TYPES.Application).to(App);
+});
+
+function bootstrap() {
+  const appContainer = new Container();
+  appContainer.load(appBindings);
+  const app = appContainer.get<App>(TYPES.Application);
+  app.init();
+  return { app, appContainer };
+}
+
+/*
 const appContainer = new Container();
 appContainer.bind<ILoggerService>(TYPES.ILoggerService).to(LoggerService);
 appContainer.bind<IExeptionFilter>(TYPES.ExeptionFilter).to(ExeptionFilter);
@@ -26,5 +42,6 @@ appContainer.bind<UsersController>(TYPES.UsersController).to(UsersController);
 appContainer.bind<App>(TYPES.Application).to(App);
 const app = appContainer.get<App>(TYPES.Application);
 app.init();
+*/
 
-export { app, appContainer };
+export const { app, appContainer } = bootstrap();

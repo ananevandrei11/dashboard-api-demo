@@ -4,9 +4,13 @@ import { BaseController } from "../common/base.controller.ts";
 import type { ILoggerService } from "../logger/logger.interface.ts";
 import { HTTPError } from "../error/http-error.class.ts";
 import { TYPES } from "../types.ts";
+import type { IUsersController } from "./users.controller.interface.ts";
 
 @injectable()
-export class UsersController extends BaseController {
+export class UsersController
+  extends BaseController
+  implements IUsersController
+{
   constructor(@inject(TYPES.ILoggerService) logger: ILoggerService) {
     super(logger);
     this.bindRoutes([
