@@ -1,14 +1,14 @@
 import express, { type Express } from "express";
 import { Server } from "http";
-import type { LoggerService } from "./logger/logger.service.ts";
 import type { UsersController } from "./users/users.controller.ts";
 import type { ExeptionFilter } from "./error/exeption.filter.ts";
+import type { ILoggerService } from "./logger/logger.interface.ts";
 
 export class App {
   app: Express;
   server: Server;
   port: number;
-  logger: LoggerService;
+  logger: ILoggerService;
   userController: UsersController;
   exeptionFilter: ExeptionFilter;
 
@@ -17,7 +17,7 @@ export class App {
     exeptionFilter,
     userController,
   }: {
-    logger: LoggerService;
+    logger: ILoggerService;
     userController: UsersController;
     exeptionFilter: ExeptionFilter;
   }) {
