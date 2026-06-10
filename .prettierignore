@@ -1,0 +1,9 @@
+node_modules
+dist
+public
+*.d.ts
+.prettierrc
+*.md
+.github
+
+# Ignore graphql generated types
