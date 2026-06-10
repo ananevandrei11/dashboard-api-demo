@@ -4,6 +4,17 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "nodemon",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/nodemon/bin/nodemon.js",
+      "args": ["-e", "ts,json", "--exec", "tsx", "src/main.ts"],
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**", "node_modules/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Debug src/main.ts (tsx)",
       "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/tsx",
       "args": ["src/main.ts"],
